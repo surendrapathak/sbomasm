@@ -1,0 +1,380 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "serialNumber": "urn:uuid:673e3541-c7f2-4c27-85d2-29fb429fa08a",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2023-05-11T11:48:21Z",
+    "tools": [
+      {
+        "vendor": "Interlynk.io",
+        "name": "sbomasm",
+        "version": "initial-test-6-g86946dd"
+      }
+    ],
+    "authors": [
+      {
+        "email": "null"
+      },
+      {
+        "email": "null"
+      },
+      {
+        "email": "[\"ritesh.noronha@interlynk.io\"]"
+      }
+    ],
+    "component": {
+      "type": "application",
+      "name": "sbomqs"
+    },
+    "licenses": [
+      {
+        "license": {
+          "id": "CC-BY-1.0"
+        }
+      }
+    ]
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "sigs.k8s.io/yaml",
+      "version": "v1.3.0",
+      "licenses": [],
+      "purl": "pkg:golang/sigs.k8s.io/yaml@v1.3.0"
+    },
+    {
+      "type": "library",
+      "name": "golang.org/x/sys",
+      "version": "v0.7.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "purl": "pkg:golang/golang.org/x/sys@v0.7.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/ProtonMail/go-crypto",
+      "version": "v0.0.0-20230217124315-7d5c6f04bbb8",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "purl": "pkg:golang/github.com/protonmail/go-crypto@v0.0.0-20230217124315-7d5c6f04bbb8"
+    },
+    {
+      "type": "library",
+      "name": "gopkg.in/yaml.v2",
+      "version": "v2.4.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:golang/gopkg.in/yaml.v2@v2.4.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/google/uuid",
+      "version": "v1.3.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "purl": "pkg:golang/github.com/google/uuid@v1.3.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/rivo/uniseg",
+      "version": "v0.4.4",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:golang/github.com/rivo/uniseg@v0.4.4"
+    },
+    {
+      "type": "library",
+      "name": "go.uber.org/atomic",
+      "version": "v1.10.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:golang/go.uber.org/atomic@v1.10.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/mattn/go-runewidth",
+      "version": "v0.0.14",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:golang/github.com/mattn/go-runewidth@v0.0.14"
+    },
+    {
+      "type": "library",
+      "name": "go.uber.org/zap",
+      "version": "v1.24.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:golang/go.uber.org/zap@v1.24.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/spf13/cobra",
+      "version": "v1.7.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:golang/github.com/spf13/cobra@v1.7.0"
+    },
+    {
+      "type": "library",
+      "name": "sigs.k8s.io/release-utils",
+      "version": "v0.7.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:golang/sigs.k8s.io/release-utils@v0.7.3"
+    },
+    {
+      "type": "library",
+      "name": "github.com/spf13/pflag",
+      "version": "v1.0.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "purl": "pkg:golang/github.com/spf13/pflag@v1.0.5"
+    },
+    {
+      "type": "library",
+      "name": "github.com/CycloneDX/cyclonedx-go",
+      "version": "v0.7.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:golang/github.com/cyclonedx/cyclonedx-go@v0.7.1"
+    },
+    {
+      "type": "library",
+      "name": "github.com/common-nighthawk/go-figure",
+      "version": "v0.0.0-20210622060536-734e95fb86be",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:golang/github.com/common-nighthawk/go-figure@v0.0.0-20210622060536-734e95fb86be"
+    },
+    {
+      "type": "library",
+      "name": "golang.org/x/oauth2",
+      "version": "v0.7.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "purl": "pkg:golang/golang.org/x/oauth2@v0.7.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/package-url/packageurl-go",
+      "version": "v0.1.0",
+      "licenses": [],
+      "purl": "pkg:golang/github.com/package-url/packageurl-go@v0.1.0"
+    },
+    {
+      "type": "library",
+      "name": "golang.org/x/exp",
+      "version": "v0.0.0-20230321023759-10a507213a29",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "purl": "pkg:golang/golang.org/x/exp@v0.0.0-20230321023759-10a507213a29"
+    },
+    {
+      "type": "library",
+      "name": "github.com/DependencyTrack/client-go",
+      "version": "v0.9.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:golang/github.com/dependencytrack/client-go@v0.9.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/cloudflare/circl",
+      "version": "v1.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "purl": "pkg:golang/github.com/cloudflare/circl@v1.1.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/samber/lo",
+      "version": "v1.38.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:golang/github.com/samber/lo@v1.38.1"
+    },
+    {
+      "type": "library",
+      "name": "github.com/google/go-github/v52",
+      "version": "v52.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "purl": "pkg:golang/github.com/google/go-github/v52@v52.0.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/spdx/gordf",
+      "version": "v0.0.0-20221230105357-b735bd5aac89",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:golang/github.com/spdx/gordf@v0.0.0-20221230105357-b735bd5aac89"
+    },
+    {
+      "type": "library",
+      "name": "github.com/spdx/tools-golang",
+      "version": "v0.4.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:golang/github.com/spdx/tools-golang@v0.4.0"
+    },
+    {
+      "type": "library",
+      "name": "golang.org/x/crypto",
+      "version": "v0.7.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "purl": "pkg:golang/golang.org/x/crypto@v0.7.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/olekukonko/tablewriter",
+      "version": "v0.0.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:golang/github.com/olekukonko/tablewriter@v0.0.5"
+    },
+    {
+      "type": "library",
+      "name": "go.uber.org/multierr",
+      "version": "v1.11.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:golang/go.uber.org/multierr@v1.11.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/google/go-querystring",
+      "version": "v1.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "purl": "pkg:golang/github.com/google/go-querystring@v1.1.0"
+    }
+  ]
+}
