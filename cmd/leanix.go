@@ -5,7 +5,6 @@ package cmd
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/interlynk-io/sbomasm/pkg/assemble"
 	"github.com/interlynk-io/sbomasm/pkg/leanix"
@@ -16,50 +15,61 @@ import (
 // leanixCmd represents the leanix command
 var leanixCmd = &cobra.Command{
 	Use:   "leanix",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "Assembled products for leanix",
 	Run: func(cmd *cobra.Command, args []string) {
-		logger.InitDebugLogger()
+		debug, _ := cmd.Flags().GetBool("debug")
+		if debug {
+			logger.InitDebugLogger()
+		} else {
+			logger.InitProdLogger()
+		}
 		ctx := logger.WithLogger(context.Background())
 
-		token, err := leanix.Authenticate()
+		lParams, _ := extractArgs(cmd, args)
+		lParams.Ctx = &ctx
+		lParams.Version = "1.0.0"
+
+		files := initializeLeanIXProduct(lParams.Name)
+		lParams.Input = files
+
+		err := assemble.Assemble(lParams)
 		if err != nil {
 			panic(err)
 		}
-
-		fmt.Println("Authentication token:", token)
-
-		resp, _ := leanix.GetProduct(token, "Interlynk Service")
-
-		files, _ := leanix.WriteTempCDXFiles(resp)
-		fmt.Println("Wrote", len(files), "CDX files", files)
-
-		aParams := assemble.NewParams()
-		aParams.Name = resp.Data.Products[0].Name
-		aParams.Version = "1.0.0"
-		aParams.Input = files
-		aParams.Ctx = &ctx
-		aParams.ConfigPath = "./leanix-config.yaml"
-		aParams.Output = "leanix-combined.sbom.json"
-		assemble.Assemble(aParams)
 	},
+}
+
+func initializeLeanIXProduct(name string) []string {
+	token, err := leanix.Authenticate()
+	if err != nil {
+		panic(err)
+	}
+	resp, err := leanix.GetProduct(token, name)
+	if err != nil {
+		panic(err)
+	}
+
+	files, err := leanix.WriteTempCDXFiles(resp)
+	if err != nil {
+		panic(err)
+	}
+
+	return files
 }
 
 func init() {
 	rootCmd.AddCommand(leanixCmd)
+	leanixCmd.Flags().StringP("output", "o", "", "path to assembled sbom, defaults to stdout")
+	leanixCmd.Flags().StringP("configPath", "c", "", "path to config file")
 
-	// Here you will define your flags and configuration settings.
+	leanixCmd.Flags().StringP("name", "n", "", "Name of product on leanix dashboard")
+	leanixCmd.MarkFlagRequired("name")
 
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// leanixCmd.PersistentFlags().String("foo", "", "A help for foo")
+	leanixCmd.Flags().BoolP("flatMerge", "f", false, "flat merge")
+	leanixCmd.Flags().BoolP("hierMerge", "m", true, "hierarchical merge")
 
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// leanixCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	leanixCmd.Flags().BoolP("xml", "x", false, "output in xml format")
+	leanixCmd.Flags().BoolP("json", "j", true, "output in json format")
+
+	leanixCmd.PersistentFlags().BoolP("debug", "d", false, "debug output")
 }
