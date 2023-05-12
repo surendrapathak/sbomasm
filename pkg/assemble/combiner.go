@@ -178,7 +178,6 @@ func toSpdxMergerSettings(c *config) *spdx.MergeSettings {
 			Phone: a.Phone,
 		})
 	}
-
 	ms.App.Checksums = []spdx.Checksum{}
 	for _, c := range c.App.Checksums {
 		ms.App.Checksums = append(ms.App.Checksums, spdx.Checksum{
