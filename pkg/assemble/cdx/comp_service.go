@@ -78,6 +78,12 @@ func (s *ComponentService) RedactComp(c *cydx.Component) *cydx.Component {
 	nc.Name = fmt.Sprintf("Redacted-%s", eName)
 	nc.BOMRef = newBomRef(nc)
 
+	nc.Supplier = &cydx.OrganizationalEntity{}
+	nc.Supplier.Name = "Redacted"
+	nc.Supplier.Contact = &[]cydx.OrganizationalContact{
+		{Name: "Redacted", Email: "Redacted"},
+	}
+
 	s.idList = append(s.idList, idmap{
 		oldID: c.BOMRef,
 		newID: nc.BOMRef,
