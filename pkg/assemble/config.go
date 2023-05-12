@@ -87,12 +87,25 @@ type assemble struct {
 	HierarchicalMerge          bool `yaml:"hierarchical_merge"`
 }
 
+type redactComponent struct {
+	Name string `yaml:"name"`
+}
+
+type redactComponentConfig struct {
+	Components []redactComponent `yaml:"components"`
+}
+
+type redactConfig struct {
+	ComponentConfig redactComponentConfig `yaml:"components_config"`
+}
+
 type config struct {
 	ctx      *context.Context
 	App      app    `yaml:"app"`
 	Output   output `yaml:"output"`
 	input    input
-	Assemble assemble `yaml:"assemble"`
+	Assemble assemble     `yaml:"assemble"`
+	Redact   redactConfig `yaml:"redact"`
 }
 
 var defaultConfig = config{
@@ -128,6 +141,13 @@ var defaultConfig = config{
 		IncludeComponents:          true,
 		IncludeDependencyGraph:     true,
 		includeDuplicateComponents: true,
+	},
+	Redact: redactConfig{
+		ComponentConfig: redactComponentConfig{
+			Components: []redactComponent{
+				{Name: "[OPTIONAL]"},
+			},
+		},
 	},
 }
 
@@ -279,6 +299,10 @@ func (c *config) validate() error {
 
 	if c.Assemble.FlatMerge && c.Assemble.HierarchicalMerge {
 		return fmt.Errorf("flat merge or hierarchical merger can be set, not both")
+	}
+
+	for i := range c.Redact.ComponentConfig.Components {
+		c.Redact.ComponentConfig.Components[i].Name = sanitize(c.Redact.ComponentConfig.Components[i].Name)
 	}
 
 	err := c.validateInputContent()

@@ -130,6 +130,11 @@ func toCDXMergerSettings(c *config) *cdx.MergeSettings {
 		})
 	}
 
+	for _, c := range c.Redact.ComponentConfig.Components {
+		ms.Redact.ComponentConfig.Components = append(ms.Redact.ComponentConfig.Components, cdx.RedactComponent{
+			Name: c.Name,
+		})
+	}
 	return &ms
 }
 

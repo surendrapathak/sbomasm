@@ -111,12 +111,25 @@ type assemble struct {
 	HierarchicalMerge          bool
 }
 
+type RedactComponent struct {
+	Name string
+}
+
+type RedactComponentConfig struct {
+	Components []RedactComponent
+}
+
+type RedactConfig struct {
+	ComponentConfig RedactComponentConfig
+}
+
 type MergeSettings struct {
 	Ctx      *context.Context
 	App      app
 	Output   output
 	Input    input
 	Assemble assemble
+	Redact   RedactConfig
 }
 
 func Merge(ms *MergeSettings) error {

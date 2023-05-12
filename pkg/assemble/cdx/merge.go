@@ -17,6 +17,8 @@ package cdx
 import (
 	"io"
 	"os"
+	"regexp"
+	"strings"
 
 	cydx "github.com/CycloneDX/cyclonedx-go"
 	"github.com/interlynk-io/sbomasm/pkg/logger"
@@ -195,6 +197,19 @@ func (m *merge) flatMerge() error {
 		comps = append(comps, *c)
 	}
 
+	//Redact components
+	log.Debug("Redacting components", len(m.settings.Redact.ComponentConfig.Components))
+	comps = lo.Map(comps, func(c cydx.Component, _ int) cydx.Component {
+		for _, rc := range m.settings.Redact.ComponentConfig.Components {
+			regE := regexp.MustCompile(strings.ToLower(rc.Name))
+			if regE.MatchString(strings.ToLower(c.Name)) {
+				log.Debug("Redacting component: ", c.Name)
+				return *cs.RedactComp(&c)
+			}
+		}
+		return c
+	})
+
 	//Add depedencies between new primary component and old primary components
 	priIds := lo.Map(priComps, func(c *cydx.Component, _ int) string {
 		return c.BOMRef
@@ -241,6 +256,20 @@ func (m *merge) hierarchicalMerge() error {
 			for _, c := range lo.FromPtr(bom.Components) {
 				*pc.Components = append(*pc.Components, *cs.StoreAndCloneWithNewID(&c))
 			}
+
+			//Redact components
+			log.Debug("Redacting components of len ", len(m.settings.Redact.ComponentConfig.Components))
+			*pc.Components = lo.Map(*pc.Components, func(c cydx.Component, _ int) cydx.Component {
+				for _, rc := range m.settings.Redact.ComponentConfig.Components {
+					regE := regexp.MustCompile(strings.ToLower(rc.Name))
+					if regE.MatchString(strings.ToLower(c.Name)) {
+						log.Debug("Redacting component: ", c.Name)
+						return *cs.RedactComp(&c)
+					}
+				}
+				return c
+			})
+
 			return pc
 		}
 		return &cydx.Component{}

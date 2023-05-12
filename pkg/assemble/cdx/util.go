@@ -16,6 +16,9 @@ package cdx
 
 import (
 	"context"
+	"crypto/aes"
+	"crypto/cipher"
+	"encoding/base64"
 	"fmt"
 	"os"
 	"time"
@@ -95,4 +98,25 @@ func utcNowTime() string {
 	location, _ := time.LoadLocation("UTC")
 	locationTime := time.Now().In(location)
 	return locationTime.Format(time.RFC3339)
+}
+
+var bytes = []byte{35, 46, 57, 24, 85, 35, 24, 74, 87, 35, 88, 98, 66, 32, 14, 05}
+
+// This should be in an env file in production
+const leanIXSecrect string = "abc&1*~#^2^#s0^=)^^7%b34"
+
+func Encode(b []byte) string {
+	return base64.StdEncoding.EncodeToString(b)
+}
+
+func Encrypt(text, secret string) (string, error) {
+	block, err := aes.NewCipher([]byte(secret))
+	if err != nil {
+		return "", err
+	}
+	plainText := []byte(text)
+	cfb := cipher.NewCFBEncrypter(block, bytes)
+	cipherText := make([]byte, len(plainText))
+	cfb.XORKeyStream(cipherText, plainText)
+	return Encode(cipherText), nil
 }

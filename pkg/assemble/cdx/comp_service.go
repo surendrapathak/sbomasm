@@ -16,6 +16,7 @@ package cdx
 
 import (
 	"context"
+	"fmt"
 
 	cydx "github.com/CycloneDX/cyclonedx-go"
 	"github.com/interlynk-io/sbomasm/pkg/logger"
@@ -61,6 +62,25 @@ func (s *ComponentService) StoreAndCloneWithNewID(c *cydx.Component) *cydx.Compo
 	s.idList = append(s.idList, idmap{
 		oldID: c.BOMRef,
 		newID: newID,
+	})
+
+	return nc
+}
+
+func (s *ComponentService) RedactComp(c *cydx.Component) *cydx.Component {
+	if c == nil {
+		return nil
+	}
+	nc := &cydx.Component{}
+	nc.Version = c.Version
+	nc.Type = c.Type
+	eName, _ := Encrypt(fmt.Sprintf("%s#%s", c.Name, c.Version), leanIXSecrect)
+	nc.Name = fmt.Sprintf("Redacted-%s", eName)
+	nc.BOMRef = newBomRef(nc)
+
+	s.idList = append(s.idList, idmap{
+		oldID: c.BOMRef,
+		newID: nc.BOMRef,
 	})
 
 	return nc
